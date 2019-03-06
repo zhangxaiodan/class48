@@ -5,10 +5,10 @@ vcvcvc:
 master update file:
 123456
 user update file
-local file
+alocal file
 githup update file
 git2 user
-
+123456
 local dev:
 
 hub dev
