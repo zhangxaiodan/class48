@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kgc.mapper.PersonMapper">
+
+    <resultMap type="com.kgc.pojo.Person" id="personmap">
+        <!-- 因为设置了FULL映射，而且属性名字跟数据库名字一样，因此，只要写id即可全部映射了 -->
+        <id property="id" column="id"></id>
+        <association property="dept" javaType="com.kgc.pojo.Dept">
+           <result  property="id"  column="dept_id"/>
+           <result  property="deptname" column="dept_name"/>
+        
+        </association>
+   
+    </resultMap>
+
+
+    <select id="getCount" resultType="int">
+          SELECT COUNT(*)FROM person
+    </select>
+    
+    <select id="getPersonByPage" resultMap="personmap">
+          SELECT person.*,dept_name
+          FROM person 
+		   INNER JOIN dept
+			ON person.dept_id=dept.id
+			ORDER BY id ASC
+			LIMIT #{from},#{pagesize}
+    </select>
+    
+    <select id="getCountByname" resultType="int">
+        SELECT COUNT(*)
+		FROM dept 
+		INNER JOIN person 
+		ON person.dept_id=dept.id
+		<where>
+			<if test="name!=null and name!=''">
+			   and name like concat('%',#{name},'%')
+			</if>
+			<if test="deptno!=null and deptno!=-1">
+			   and dept.id=#{deptno}
+			</if>
+		  </where> 
+    </select>
+    
+    <select id="getPersonByPagename" resultMap="personmap">
+         SELECT person.*,dept_name
+		 FROM person 
+		 INNER JOIN dept
+		 ON person.dept_id=dept.id
+		 <where>
+			<if test="name!=null and name!=''">
+			   and name like concat('%',#{name},'%')
+			</if>
+			<if test="deptno!=null and deptno!=-1">
+			   and dept.id=#{deptno}
+			</if>
+		  </where> 
+         ORDER BY id desc
+         LIMIT #{from},#{pageSize}
+    </select>
+    
+    <insert id="addperson">
+         INSERT INTO person
+         VALUES (NULL,#{name},#{age},#{address},#{dept.id});
+    </insert>
+    
+    <delete id="delperson">
+         DELETE FROM person WHERE id=#{id}
+    </delete>
+    
+    <select id="showpersonById" resultMap="personmap">
+       select *from person where id=#{id}
+    </select>
+    
+    <update id="updateperson">
+        update person
+           <set>
+              <if test="name!=null">name=#{name},</if>
+              <if test="age!=null">age=#{age},</if>
+              <if test="address!=null">address=#{address},</if>
+              <if test="dept!=null">dept_id =#{dept.id},</if>
+           </set>
+        where id=#{id}
+    </update>
+
+</mapper>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration SYSTEM "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+   <settings>
+       <setting name="logImpl" value="LOG4J"/>
+       <setting name="autoMappingBehavior" value="FULL"/>
+   </settings>
+   <typeAliases>
+        <!-- 配置别名 -->
+          <package name="com.kgc.pojo"/>
+   </typeAliases>
+
+
+   <mappers>
+       <mapper resource="com/kgc/mapper/PersonMapper.xml"></mapper>
+       <mapper resource="com/kgc/mapper/DeptMapper.xml"></mapper>
+    </mappers>
+
+</configuration>

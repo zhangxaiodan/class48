@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kgc.mapper.DeptMapper">
+
+
+    <resultMap type="Dept" id="deptmap">
+        <id  property="id" column="id"></id>
+        <result property="deptname" column="dept_name"></result>
+    </resultMap>
+
+     <!-- 返回类型是Dept别名，因为在mybatis-config.xml里面已经配置了别名 -->
+     <!-- 查询所有部门 -->
+     <select id="getAllDept" resultMap="deptmap">
+          SELECT *FROM dept
+     </select>
+     
+     
+</mapper>
