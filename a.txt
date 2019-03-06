@@ -4,3 +4,5 @@ cxcc
 vcvcvc:
 master update file:
 123456
+user update file
+local file
